@@ -1,0 +1,4 @@
+dec pot : num * num -> num;
+--- pot (b, 0) <- 1;
+--- pot (b, 1) <- b;
+--- pot (b, n) <- b * pot (b, e - 1);

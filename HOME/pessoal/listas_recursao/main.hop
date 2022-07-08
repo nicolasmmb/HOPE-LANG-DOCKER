@@ -1,0 +1,51 @@
+! -- LISTAS -- !
+dec lst : num -> list num;
+--- lst 0 <= [];
+--- lst n <= n :: lst(n - 1);
+
+
+
+! -- CABACA -- !
+dec head : list num -> num;
+--- head [] <= error("FUNC: head ->> Lista Vazia");
+--- head (x :: xs) <= x;
+
+! -- CALDA -- !
+dec tail : list num -> list num;
+--- tail [] <= error("FUNC: tail ->> Lista Vazia");
+--- tail (x :: xs) <= xs;
+
+! -- TAMANHO -- !
+dec size : list num -> num;
+--- size [] <= 0;
+--- size (x :: xs) <= 1 + size(xs);
+
+
+! -- ULTIMO ELEMENTO -- !
+dec last : list num -> num;
+--- last [] <= error("FUNC: last ->> Lista Vazia");
+--- last [x] <= x;
+--- last (x :: xs) <= last(xs);
+
+! -- ARRANJO -- !
+dec arrangment : list num -> list num;
+--- arrangment [] <= error("FUNC: arrangment ->> Lista Vazia");
+--- arrangment [x] <= [];
+--- arrangment (x :: xs) <= x :: arrangment(xs);
+
+
+! -- SEGUNDO_ELEMENTO -- !
+dec second : list num -> num;
+--- second [] <= error("FUNC: second ->> Lista Vazia");
+--- second [x] <= error("FUNC: second ->> Lista de Tamanho 1");
+--- second (x1::x2::xs) <= x2;
+
+
+! -- PENULTIMO_ELEMENTO -- !
+dec penultimate : list num -> num;
+--- penultimate [] <= error("FUNC: penultimate ->> Lista Vazia");
+--- penultimate [x] <= error("FUNC: penultimate ->> Lista de Tamanho 1");
+--- penultimate (x::xs) <= if size(xs) = 1 
+                           then x
+                           else penultimate(xs);
+

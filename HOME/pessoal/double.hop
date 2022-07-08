@@ -1,0 +1,2 @@
+double : num -> num;
+double x <= x + x;

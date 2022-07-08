@@ -1,0 +1,33 @@
+! ---- RECUSIVIDADE DE CAUDA ---- !
+! ---------- CORRIGIDO ---------- !
+
+
+!-- SOMATORIO --!
+dec smbase: num # num -> num;
+--- smbase (0, x) <= x;
+--- smbase (n, x) <= smbase (n-1, n + x);
+
+
+dec somatorio_cauda: num -> num;
+--- somatorio_cauda n <= smbase (n, 0);
+
+
+
+! -- POTENCIA -- !
+dec ptbase: num # num # num -> num;
+--- ptbase (b, 0, v) <= v;
+--- ptbase (b, 1, v) <= v * b;
+--- ptbase (b, e, v) <= ptbase(b, e-1, v*b);
+
+dec potencia_cauda: num # num -> num;
+--- potencia_cauda(b, e) <= ptbase(b, e, 1);
+
+
+! -- DUPLO FATORIAL --!
+dec dpfbase: num # num -> num;
+--- dpfbase (0, v) <= v;
+--- dpfbase (1, v) <= v;
+--- dpfbase (n, v) <= dpfbase (n-2, n*v);
+
+dec duplo_fatorial_cauda: num -> num;
+--- duplo_fatorial_cauda n <= dpfbase (n, 1);

@@ -1,0 +1,16 @@
+
+dec multiplicacao_recursiva : num # num -> num;
+--- multiplicacao_recursiva (m, n) <= if n = 0 then 0 else m + multiplicacao_recursiva (m, n - 1);
+
+
+dec soma_recursiva : num -> num;
+--- soma_recursiva (n) <= if n = 0 then 0 else n + soma_recursiva (n - 1);
+
+dec pell : num -> num;
+--- pell 0 <= 0;
+--- pell 1 <= 1;
+--- pell n <= 2 * pell(n-1) + pell(n-2);
+
+
+dec divide_recursivo : num # num -> num;
+--- divide_recursivo (n, d) <= if (n < d) then 0 else 1 + divide_recursivo (n - d, d);

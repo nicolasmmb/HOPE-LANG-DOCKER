@@ -1,0 +1,3 @@
+dec hanoil : num -> num;
+--- hanoil 1 <= 1;
+--- hanoil (n + 1) <= 1 + 2 * hanoil n;

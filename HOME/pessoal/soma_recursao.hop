@@ -1,0 +1,2 @@
+dec multiplicacao : num # num -> num;
+--- multiplicacao 

@@ -1,0 +1,39 @@
+! -- LISTAS -- !
+dec faixa : num # num # num -> list num;
+--- faixa (i, f, p) <= if i > f
+                       then []
+                       else i :: faixa(i + p, f, p);
+
+
+! -- LIST COMPREHENSION -- !
+dec comp : list num # (num -> truval) -> list num;
+--- comp ([], func) <= [];
+--- comp (x :: xs, func) <= if func x
+                            then x :: comp(xs, func)
+                            else comp(xs, func);
+
+
+! -- LISTPOT -- !
+dec listpot : num # list num -> list num;
+--- listpot (n,[]) <= [];
+--- listpot (n,x :: xs) <= pow(x, n) :: listpot (n, xs);
+
+! -- MULTIPLO -- !
+dec multiplo : num # num -> truval;
+--- multiplo (x,y) <= if x mod y = 0
+                     then true
+                     else false;
+
+! -- DIVISOR -- !
+dec divisor : num -> list num;
+--- divisor n <= comp(faixa(1, n, 1),  \d => multiplo(n, d));
+
+
+dec par2: num -> truval;
+--- par2 (a) <= a mod 2 = 0;
+
+
+! -- usar funcao -> comp(faixa(1,120,1), \x => par2 (x));
+! -- usar funcao -> listpot(3, faixa(1,120,1));
+! -- usar funcao -> comp(listpot(2, faixa(1,5,1)), \x => par2 (x));
+! -- usar funcao -> divisor(120);

@@ -1,0 +1,18 @@
+dec media : num # num # num # num # num -> num;
+--- media (a, b, c, d, e) <= (a + b + c + d + e) / 5;
+
+
+dec multiplo : num # num -> truval;
+--- multiplo (a, b) <= if a mod b = 0 then true else false;
+
+
+dec par1 : num -> truval;
+--- par1 (a) <= if a mod 2 = 0 then true else false;
+
+
+dec par2: num -> truval;
+--- par2 (a) <= a mod 2 = 0;
+
+
+dec ultimoNumero : num -> num;
+--- ultimoNumero (a) <= a mod 10;

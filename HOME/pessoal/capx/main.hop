@@ -1,0 +1,188 @@
+! -- LISTPOT -- !
+dec listpot : num # list num -> list num;
+--- listpot (n,[]) <= [];
+--- listpot (n,x :: xs) <= pow(x, n) :: listpot (n, xs);
+
+! -- MULTIPLO -- !
+dec multiplo : num # num -> truval;
+--- multiplo (n, m) <= if n mod m = 0 
+                       then true 
+                       else false;
+
+! -- FAIXA -- !
+dec faixa : num # num # num -> list num;
+--- faixa (i, f, p) <= if i > f
+                       then []
+                       else i :: faixa(i + p, f, p);
+
+! -- BASE -- !
+
+! --AULA DE HOJE 01/07/2022 -- !
+
+
+! -- MEMBRO -- !
+dec membro : num # list num -> truval;
+--- membro (num, []) <= false;
+--- membro (num, x :: xs) <= if 
+                            num = x
+                            then true
+                            else membro (num, xs);
+
+
+! -- JUNCAO -- !
+dec juncao : list num # list num -> list num;
+--- juncao ([], []) <= [];
+--- juncao (a, []) <= a;
+--- juncao ([], b) <= b;
+--- juncao (a :: ax, b) <= a :: juncao(ax, b);
+
+
+! -- REMOVE REPETIDO -- !
+dec unicos : list num -> list num;
+--- unicos ([]) <= [];
+--- unicos (x :: xs) <= if membro(x, xs)
+                          then unicos(xs)
+                          else x :: unicos(xs);
+
+
+! -- CLASSIFICA -- !
+dec insira : num # list num -> list num;
+--- insira (x, []) <= [x];
+--- insira (x, y :: ys) <= if x < y
+                           then x :: y :: ys
+                           else y :: insira(x, ys);
+
+! -- ORDENA -- !
+dec ordena : list num -> list num;
+--- ordena [] <= [];
+--- ordena (x :: xs) <= insira(x, ordena(xs));
+
+
+! -- UNIAO -- !
+dec uniao : list num  # list num -> list num;
+--- uniao (a, b) <= ordena(unicos(juncao(a, b)));
+
+! -- INTERSECCAO -- !
+dec intersecao : list num # list num -> list num;
+--- intersecao (a, []) <= [];
+--- intersecao ([], b) <= [];
+--- intersecao (a, b :: bs) <= if membro(b, a)
+                               then b :: intersecao(a, bs)
+                               else intersecao(a, bs); 
+
+
+! -- DIFERENCA -- !
+dec diferenca : list num # list num -> list num;
+--- diferenca (a, []) <= a;
+--- diferenca ([], b) <= [];
+--- diferenca (a :: ax, b) <= if membro(a, b)
+                               then diferenca(ax, b)
+                               else a :: diferenca(ax, b);
+
+! -- SUB-LISTA -- !
+dec sublista : list num # list num -> truval;
+--- sublista ([],[]) <= true;
+--- sublista ([], b) <= true;
+--- sublista (a, []) <= false;
+--- sublista (a :: ax, b) <= if membro(a, b) 
+                             then sublista (ax, b)
+                             else false;
+
+! -- IGUALDADE -- !
+dec igualdade : list num # list num -> truval;
+--- igualdade (a, b) <= sublista (a, b) and sublista (b, a);
+
+
+! -- MAP -- !
+dec mapa : list num # (num -> num) -> list num;
+--- mapa ([], funcao) <= [];
+--- mapa (x :: xs, funcao) <= funcao(x) :: mapa(xs, funcao);
+
+! -- FILTER -- !
+dec filtra : list num # (num -> truval) -> list num;
+--- filtra ([], funcao) <= [];
+--- filtra (x :: xs, funcao) <= if funcao(x)
+                                then x :: filtra(xs, funcao)
+                                else filtra(xs, funcao);
+
+! -- REDUCE -- !
+dec reduz : list num # (num # num -> num) # num -> num;
+--- reduz ([], funcao, n) <= n;
+--- reduz (x :: xs, funcao, n) <= funcao(x, reduz(xs, funcao, n));
+
+! -- CONVOLUCAO -- !
+dec compacta : list num # list num -> list (num # num);
+--- compacta ([], b) <= [];
+--- compacta (a, []) <= [];
+--- compacta (a :: as, b :: bs) <= (a,b) :: compacta(as, bs);
+
+
+! -- OPOSTO -- !
+dec oposto : list num -> list num;
+--- oposto [] <= [];
+--- oposto (x :: xs) <= oposto(xs) <> [x];
+
+! -- DESCOMPACTA-BASE -- !
+dec dcp_base : list num # list num # list (num # num) -> list num # list num;
+--- dcp_base (xs, ys, []) <= (oposto xs, oposto ys);
+--- dcp_base (xs, ys, (x, y) :: zs) <= dcp_base(x :: xs, y :: ys, zs);
+
+! -- DESCOMPACTA -- !
+dec descompacta : list (num # num) -> list num # list num;
+--- descompacta [] <= ([], []);
+--- descompacta (xs) <= dcp_base([], [], xs);
+
+
+! -- COMPLISTA -- !
+dec complista : list num # (num -> truval) -> list num;
+--- complista ([], qualificador) <= []; 
+--- complista (x :: conjunto, qualificador) <= 
+      if qualificador x 
+      then x :: complista (conjunto, qualificador)
+      else complista (conjunto, qualificador);
+
+    
+! -- SOMA_LISTA -- !
+dec soma_lista : list num -> num;
+--- soma_lista ([]) <= 0;
+--- soma_lista (x :: xs) <= x + soma_lista xs;  
+
+
+! -- ABUNDANTE -- !
+dec abundante : num -> truval;
+--- abundante n <= soma_lista (complista (faixa (1, n + 1, 1), \x => multiplo(n, x))) - n > n;
+
+
+
+! -- SOMA IMPARES -- !
+dec soma_imperes : num -> num;
+--- soma_imperes (n) <= reduz(filtro(faixa(1,n,1), \x => x mod 2 = 1), \x => x + x, 0);
+
+
+! -- PERFEITO -- !
+dec perfeito : num -> num;
+--- perfeito;
+
+
+
+! -- juncao(faixa(1,4,1), faixa(9,12,1));
+! -- unicos(juncao(faixa(1,4,1), faixa(1,12,1))); 
+! -- insira(5, unicos(juncao(faixa(1,4,1), faixa(1,12,1))));
+! -- ordena(unicos(juncao(faixa(1,12,1),faixa(1,4,1))));
+! -- uniao(faixa(1,12,1), faixa(1,4,1));
+! -- intersecao(faixa(1,12,1), faixa(1,4,1));
+! -- diferenca(faixa(1,4,1), faixa(2,8,2));
+! -- diferenca(faixa(2,8,2), faixa(1,4,1));
+! -- sublista(faixa(1,4,1), faixa(1,4,1));
+! -- igualdade(faixa(1,4,1), faixa(1,4,1));
+! -- igualdade([1,2,3,4,5], [5,4,3,2,1]);
+! -- mapa(faixa(1,4,1),  \x => x * 3);
+! -- mapa(faixa(1,4,1),  \x => x + 1);
+! -- filtra(faixa(1,4,1),  \x => x > 2);
+! -- reduz(faixa(1,4,1),  \x, y => x + y, 0);
+! -- reduz(faixa(1,4,1),  \x, y => x * y, 1);
+! -- compacta(faixa(1,4,1), faixa(1,8,2));
+! -- oposto(faixa(1,4,1));
+! -- descompacta([(1,2),(2,3),(3,4)]);
+! -- abundante([1,2,3, 4,6]);
+! -- soma_imperes([1,2,3,4,5]);
