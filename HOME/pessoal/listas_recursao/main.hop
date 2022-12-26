@@ -4,16 +4,17 @@ dec lst : num -> list num;
 --- lst n <= n :: lst(n - 1);
 
 
-
-! -- CABACA -- !
+! -- CABECA -- !
 dec head : list num -> num;
 --- head [] <= error("FUNC: head ->> Lista Vazia");
 --- head (x :: xs) <= x;
+
 
 ! -- CALDA -- !
 dec tail : list num -> list num;
 --- tail [] <= error("FUNC: tail ->> Lista Vazia");
 --- tail (x :: xs) <= xs;
+
 
 ! -- TAMANHO -- !
 dec size : list num -> num;
